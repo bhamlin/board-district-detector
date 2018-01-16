@@ -1,5 +1,7 @@
 # Application specific configuration
 config.py
+Board District Members/
+BoardDistrict/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
