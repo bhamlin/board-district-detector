@@ -2,6 +2,7 @@
 config.py
 Board District Members/
 BoardDistrict/
+Member Services/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
