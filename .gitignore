@@ -1,7 +1,9 @@
 # Application specific configuration
 config.py
 Board District Members/
-BoardDistrict/
+BoardDistrict
+BoardDistrict.current/
+BoardDistrict.proposed/
 Member Services/
 
 # Byte-compiled / optimized / DLL files
