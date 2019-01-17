@@ -3,6 +3,7 @@
 import config
 import fiona
 import postgresql
+import os, os.path
 
 DO_PSQL_WRITE = True
 
@@ -21,7 +22,8 @@ def l_f(*message, **kwargs):
     l_('fiona', *message, **kwargs)
 
 
-SERVICES = 'Board District Members/Board District Members.shp'
+# SERVICES = 'Board District Members/Board District Members.shp'
+# SERVICES = 'shapes/'
 DISTRICTS = 'BoardDistrict/BoardDistrictBoundary.shp'
 OUTPUT_SHP = 'Member Services/Member Services.shp'
 
@@ -60,16 +62,26 @@ l_g('Performing spatial analysis...')
 l_f('Loading...')
 with fiona.drivers():
     l_f('Opening sevices...')
-    with fiona.open(SERVICES) as source:
-        l_f('Translating shapes...')
-        output_driver = source.driver
-        output_schema = source.schema
-        output_crs = source.crs
-        services = list(map(
-            lambda entry: (entry['properties']['wmElementN'],
-                           shape(entry['geometry']), entry
-                ),
-            [entry for entry in source]))
+    services = list()
+    for SERVICES in ['shapes/ConsuIrr.shp', 'shapes/ConsuLgC.shp',
+                     'shapes/ConsuLgP.shp', 'shapes/ConsuRes.shp',
+                     'shapes/ConsuSmC.shp']:
+        with fiona.open(SERVICES) as source:
+            l_f('Translating shapes in {}...'.format(SERVICES))
+            output_driver = source.driver
+            output_schema = source.schema
+            output_crs = source.crs
+            services += list(map(
+                lambda entry: (entry['properties']['SecName'],
+                               shape(entry['geometry']), entry
+                    ),
+                [entry for entry in source]))
+            # services = list(map(
+            #     lambda entry: (entry['properties']['wmElementN'],
+            #                    shape(entry['geometry']), entry
+            #         ),
+            #     [entry for entry in source]))
+            l_f('Services list now at {} entries'.format(len(services)))
     l_f('Opening districts...')
     with fiona.open(DISTRICTS) as source:
         l_f('Translating shapes...')

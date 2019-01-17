@@ -148,7 +148,7 @@ for _, ac in contacts.items():
 l_g('Done!')
 
 if final_contacts:
-    l_p('Connecting to pq://{}@{}/{}'.format(
+    l_p('Connecting to pg://{}@{}/{}'.format(
         config.psql_user, config.psql_host, config.psql_db))
     psql_db = postgresql.open(host=config.psql_host, database=config.psql_db,
         user=config.psql_user, password=config.psql_pass)
